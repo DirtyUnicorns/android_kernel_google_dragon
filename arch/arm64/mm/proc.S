@@ -207,7 +207,7 @@ ENTRY(__cpu_setup)
 	reset_pmuserenr_el0 x0			// Disable PMU access from EL0
 	isb					// Unmask debug exceptions now,
 	enable_dbg				// since this is per-cpu
-	msr	pmuserenr_el0, xzr		// Disable PMU access from EL0
+	reset_pmuserenr_el0 x0			// Disable PMU access from EL0
 	/*
 	 * Memory region attributes for LPAE:
 	 *
