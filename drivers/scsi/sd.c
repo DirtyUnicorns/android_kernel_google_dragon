@@ -3198,8 +3198,8 @@ static int sd_suspend_common(struct device *dev, bool ignore_stop_errors)
 	int sense_key = 0;
 	int ret = 0;
 
-	if (!sdkp)
-		return 0;	/* this can happen */
+	if (!sdkp)	/* E.g.: runtime suspend following sd_remove() */
+		return 0;
 
 	/* Avoid race condition with resume */
 	if (work_pending(&sdkp->resume_work))
@@ -3252,6 +3252,9 @@ static void __sd_resume(struct work_struct *work)
 	struct scsi_disk *sdkp = container_of(work, struct scsi_disk,
 		resume_work);
 	int ret = 0;
+
+	if (!sdkp)	/* E.g.: runtime resume at the start of sd_probe() */
+		return;
 
 	if (!sdkp->device->manage_start_stop)
 		goto done;
