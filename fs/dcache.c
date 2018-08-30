@@ -3450,8 +3450,7 @@ void __init vfs_caches_init(unsigned long mempages)
 	chrdev_init();
 }
 
-void take_dentry_name_snapshot(struct name_snapshot *name,
-				struct dentry *dentry)
+void take_dentry_name_snapshot(struct name_snapshot *name, struct dentry *dentry)
 {
 	spin_lock(&dentry->d_lock);
 	if (unlikely(dname_external(dentry))) {
