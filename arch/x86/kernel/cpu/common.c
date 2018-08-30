@@ -1487,6 +1487,12 @@ void cpu_init(void)
 
 	wait_for_master_cpu(cpu);
 
+	/*
+	 * Initialize the CR4 shadow before doing anything that could
+	 * try to read it.
+	 */
+	cr4_init_shadow();
+
 	show_ucode_info_early();
 
 	pr_info("Initializing CPU#%d\n", cpu);
