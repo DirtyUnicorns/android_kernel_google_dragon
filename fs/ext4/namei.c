@@ -2073,7 +2073,7 @@ static int ext4_add_entry(handle_t *handle, struct dentry *dentry,
 			  struct inode *inode)
 {
 	struct inode *dir = dentry->d_parent->d_inode;
-	struct buffer_head *bh;
+	struct buffer_head *bh = NULL;
 	struct ext4_dir_entry_2 *de;
 	struct ext4_dir_entry_tail *t;
 	struct super_block *sb;
@@ -2103,14 +2103,14 @@ static int ext4_add_entry(handle_t *handle, struct dentry *dentry,
 			goto out;
 		if (retval == 1) {
 			retval = 0;
-			return retval;
+			goto out;
 		}
 	}
 
 	if (is_dx(dir)) {
 		retval = ext4_dx_add_entry(handle, &fname, dentry, inode);
 		if (!retval || (retval != ERR_BAD_DX_DIR))
-			return retval;
+			goto out;
 		ext4_clear_inode_flag(dir, EXT4_INODE_INDEX);
 		dx_fallback++;
 		ext4_mark_inode_dirty(handle, dir);
@@ -2125,10 +2125,8 @@ static int ext4_add_entry(handle_t *handle, struct dentry *dentry,
 		}
 		retval = add_dirent_to_buf(handle, &fname, dir, inode,
 					   NULL, bh);
-		if (retval != -ENOSPC) {
-			brelse(bh);
-			return retval;
-		}
+		if (retval != -ENOSPC)
+			goto out;
 
 		if (blocks == 1 && !dx_fallback &&
 		    EXT4_HAS_COMPAT_FEATURE(sb, EXT4_FEATURE_COMPAT_DIR_INDEX)) {

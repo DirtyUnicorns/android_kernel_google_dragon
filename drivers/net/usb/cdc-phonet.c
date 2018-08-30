@@ -343,9 +343,9 @@ static int usbpn_probe(struct usb_interface *intf, const struct usb_device_id *i
 
 	data = intf->altsetting->extra;
 	len = intf->altsetting->extralen;
-	while (len > 0) {
+	while (len >= 3) {
 		u8 dlen = data[0];
-		if ((len < dlen) || (dlen < 3 ))
+		if (dlen < 3)
 			return -EINVAL;
 
 		/* bDescriptorType */
