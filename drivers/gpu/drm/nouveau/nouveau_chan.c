@@ -79,6 +79,7 @@ nouveau_channel_idle_suspend(struct nouveau_channel *chan)
 	return _nouveau_channel_idle(chan, true);
 }
 
+/*
 void
 nouveau_channel_set_error_notifier(struct nouveau_channel *chan, u32 error)
 {
@@ -99,7 +100,7 @@ nouveau_channel_set_error_notifier(struct nouveau_channel *chan, u32 error)
 
 	NV_PRINTK(error, cli, "error notifier set to %d for ch %d\n",
 			error, chan->chid);
-}
+}*/
 
 int
 nouveau_channel_init_error_notifier(struct nouveau_channel *chan,
@@ -418,7 +419,7 @@ nouveau_chan_eevent_handler(struct nvif_notify *notify)
 	const struct nvif_notify_eevent_rep *rep = notify->data;
 
 	WARN_ON(rep->chid != chan->chid);
-	nouveau_channel_set_error_notifier(chan, rep->error);
+/*	nouveau_channel_set_error_notifier(chan, rep->error);*/
 	return NVIF_NOTIFY_KEEP;
 }
 static int
