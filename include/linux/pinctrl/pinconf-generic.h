@@ -120,7 +120,7 @@ enum pin_config_param {
 				.has_arg = d }
 
 struct pin_config_item {
-	const enum pin_config_param param;
+	const int param;
 	const char * const display;
 	const char * const format;
 	bool has_arg;
@@ -149,7 +149,7 @@ static inline u16 pinconf_to_config_argument(unsigned long config)
 	return (enum pin_config_param) ((config >> 16) & 0xffffUL);
 }
 
-static inline unsigned long pinconf_to_config_packed(enum pin_config_param param,
+static inline unsigned long pinconf_to_config_packed(int param,
 						     u16 argument)
 {
 	return PIN_CONF_PACKED(param, argument);
@@ -164,7 +164,7 @@ struct pinctrl_map;
 
 struct pinconf_generic_dt_params {
 	const char * const property;
-	enum pin_config_param param;
+	int param;
 	u32 default_value;
 };
 
