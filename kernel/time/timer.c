@@ -92,7 +92,7 @@ struct tvec_base {
 	struct tvec tv5;
 } ____cacheline_aligned;
 
-struct __suspend_volatile_bss tvec_base boot_tvec_bases;
+struct tvec_base __suspend_volatile_bss boot_tvec_bases;
 EXPORT_SYMBOL(boot_tvec_bases);
 static DEFINE_PER_CPU(struct tvec_base *, tvec_bases) = &boot_tvec_bases;
 
