@@ -36,7 +36,7 @@
 #include <linux/slab.h>
 #include "drm_legacy.h"
 
-#if __OS_HAS_AGP
+#ifdef __OS_HAS_AGP
 
 #include <asm/agp.h>
 

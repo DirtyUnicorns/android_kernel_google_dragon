@@ -12,8 +12,9 @@
 struct drm_device;
 struct drm_file;
 
-#define __OS_HAS_AGP (defined(CONFIG_AGP) || (defined(CONFIG_AGP_MODULE) && \
-					      defined(MODULE)))
+#if defined(CONFIG_AGP) || (defined(CONFIG_AGP_MODULE) && defined(MODULE))
+#define __OS_HAS_AGP
+#endif
 
 struct drm_agp_head {
 	struct agp_kern_info agp_info;
@@ -28,7 +29,7 @@ struct drm_agp_head {
 	unsigned long page_mask;
 };
 
-#if __OS_HAS_AGP
+#ifdef __OS_HAS_AGP
 
 void drm_free_agp(struct agp_memory * handle, int pages);
 int drm_bind_agp(struct agp_memory * handle, unsigned int start);
