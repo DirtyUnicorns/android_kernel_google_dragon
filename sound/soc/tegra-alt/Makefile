@@ -76,3 +76,6 @@ obj-$(CONFIG_SND_SOC_TEGRA_T210REF_MOBILE_ALT) += snd-soc-tegra-alt-t210ref-mobi
 obj-$(CONFIG_SND_SOC_TEGRA_T210REF_MOBILE_ES755_ALT) += snd-soc-tegra-alt-t210ref-mobile-es755.o
 obj-$(CONFIG_SND_SOC_TEGRA_T210REF_MOBILE_RT5677_ALT) += snd-soc-tegra-alt-t210ref-mobile-rt5677.o
 obj-$(CONFIG_SND_SOC_TEGRA_T210REF_ALT) += snd-soc-tegra-alt-t210ref.o
+
+# https://github.com/ClangBuiltLinux/linux/issues/92
+CFLAGS_tegra_pcm_alt.o += $(call cc-disable-warning, shift-count-overflow)
