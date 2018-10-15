@@ -1957,7 +1957,7 @@ static void tegra210_init_ptsa(struct tegra_mc *mc)
 
 	emc_freq_mhz = clk_get_rate(mc->emc_clk) / LA_HZ_TO_MHZ_FACTOR;
 
-	same_freq = mc_readl(mc, MC_EMEM_ARB_MISC0) &&
+	same_freq = mc_readl(mc, MC_EMEM_ARB_MISC0) &
 		MC_EMEM_ARB_MISC0_MC_EMC_SAME_FREQ_BIT;
 	mc_freq_mhz = same_freq ? emc_freq_mhz : emc_freq_mhz / 2;
 
