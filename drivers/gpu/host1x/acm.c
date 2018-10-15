@@ -178,10 +178,6 @@ int host1x_module_add_user(struct host1x_client *client,
 
 	INIT_LIST_HEAD(&user->node);
 
-	/* This client did not advertise any clocks, so don't bother */
-	if (!client->clocks)
-		return 0;
-
 	for (k = 0; k < ARRAY_SIZE(client->clocks); k++) {
 		if (!client->clocks[k].clk)
 			continue;
@@ -212,10 +208,6 @@ void host1x_module_remove_user(struct host1x_client *client,
 	mutex_lock(&client->user_list_lock);
 	list_del(&user->node);
 	mutex_unlock(&client->user_list_lock);
-
-	/* This client did not advertise any clocks, so don't bother */
-	if (!client->clocks)
-		return;
 
 	for (k = 0; k < ARRAY_SIZE(client->clocks); k++) {
 		if (!client->clocks[k].clk)
