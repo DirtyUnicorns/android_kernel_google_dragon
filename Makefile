@@ -339,7 +339,6 @@ include $(srctree)/scripts/Kbuild.include
 # Make variables (CC, etc...)
 AS		= $(CROSS_COMPILE)as
 LD		= $(CROSS_COMPILE)ld
-LD		+= -O3
 CC		= $(CROSS_COMPILE)gcc
 CC		+= -O3 -mtune=cortex-a57.cortex-a53
 CC		+= -fmodulo-sched -fmodulo-sched-allow-regmoves
