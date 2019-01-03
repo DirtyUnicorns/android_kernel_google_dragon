@@ -51,15 +51,10 @@ EXPORT_SYMBOL_GPL(list_lru_del);
 unsigned long
 list_lru_count_node(struct list_lru *lru, int nid)
 {
-	unsigned long count = 0;
 	struct list_lru_node *nlru = &lru->node[nid];
 
-	spin_lock(&nlru->lock);
 	WARN_ON_ONCE(nlru->nr_items < 0);
-	count += nlru->nr_items;
-	spin_unlock(&nlru->lock);
-
-	return count;
+	return nlru->nr_items;
 }
 EXPORT_SYMBOL_GPL(list_lru_count_node);
 
